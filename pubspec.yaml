@@ -1,0 +1,28 @@
+name: wireguard_vpn_demo
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  device_preview_plus: ^2.2.6
+  flutter_riverpod: ^2.6.1
+  flutter_vector_icons: 
+    git: 
+      url: https://github.com/victoreronmosele/flutter-vector-icons.git
+      ref: v3.0.0
+  avatar_glow: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
