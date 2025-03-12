@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:avatar_glow/avatar_glow.dart';
@@ -27,7 +28,7 @@ class _VpnScreenState extends State<VpnScreen> {
   late String name;
   String? ipAddress;
   Server selectedServer = servers.first;
-
+  late Timer timer;
   @override
   void initState() {
     super.initState();
@@ -45,6 +46,9 @@ class _VpnScreenState extends State<VpnScreen> {
       });
     });
     name = 'my_wg_vpn';
+    timer = Timer.periodic(Duration(seconds: 1), (tick) {
+      _getWireGuardDataCounts();
+    });
     initialize();
   }
 
@@ -59,11 +63,11 @@ class _VpnScreenState extends State<VpnScreen> {
 
   void _getWireGuardDataCounts() async {
     try {
-      final dataCounts = await _wireguardService.getDataCounts();
-      setState(() {
-        _downloadCount = dataCounts['download'].toString();
-        _uploadCount = dataCounts['upload'].toString();
-      });
+      final dataCounts = await wireguard.getDataCounts();
+      // setState(() {
+      //   _downloadCount = dataCounts['download'].toString();
+      //   _uploadCount = dataCounts['upload'].toString();
+      // });
     } catch (e) {
       print('Failed to get data counts: $e');
     }
@@ -116,6 +120,13 @@ class _VpnScreenState extends State<VpnScreen> {
   }
 
   void changeServer(Server server) {}
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var color = switch (status) {
@@ -180,7 +191,7 @@ class _VpnScreenState extends State<VpnScreen> {
                 ],
               ),
               if (ipAddress != null && status == VpnStage.connected) ...[
-                SizedBox(height: 20),
+                SizedBox(height: 0),
                 Text(
                   "IP Address: ${ipAddress}",
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
@@ -188,7 +199,7 @@ class _VpnScreenState extends State<VpnScreen> {
                       ),
                 ),
               ],
-              SizedBox(height: 150),
+              SizedBox(height: 40),
               AvatarGlow(
                 duration: Duration(milliseconds: 2000),
                 glowColor: switch (status) {
