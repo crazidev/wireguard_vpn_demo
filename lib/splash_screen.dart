@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:wireguard_vpn_demo/vpn_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,110 +24,114 @@ class _SplashScreenState extends State<SplashScreen> {
       body: SizedBox(
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height,
-        child: Stack(
-          children: [
-            Stack(
-              children: [
-                Image.asset(
-                  "assets/MES—L7 2.png",
-                  fit: BoxFit.contain,
-                  width: MediaQuery.sizeOf(context).width,
-                ).slideDown(
-                  from: 200,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 700),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  child: Image.asset(
-                    "assets/MES—L6 1.png",
+        child: GestureDetector(
+          onTap: () => setState(() {
+            showFirst = !showFirst;
+            hasAnimatedFirst = true;
+          }),
+          child: Stack(
+            children: [
+              Stack(
+                children: [
+                  Image.asset(
+                    "assets/MES—L7 2.png",
+                    fit: BoxFit.contain,
+                    width: MediaQuery.sizeOf(context).width,
+                  ).slideDown(
+                    from: 200,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 700),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: Image.asset(
+                      "assets/MES—L6 1.png",
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.sizeOf(context).width,
+                    ),
+                  ).slideDown(
+                    from: 200,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 1000),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
+                  ),
+                  Image.asset(
+                    "assets/MES—L5 1.png",
                     fit: BoxFit.fitWidth,
                     width: MediaQuery.sizeOf(context).width,
+                  ).slideUp(
+                    from: 1500,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 1000),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
                   ),
-                ).slideDown(
-                  from: 200,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 1000),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-                Image.asset(
-                  "assets/MES—L5 1.png",
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.sizeOf(context).width,
-                ).slideUp(
-                  from: 1500,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 1000),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-                Image.asset(
-                  "assets/MES—L4 1.png",
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.sizeOf(context).width,
-                ).slideUp(
-                  from: 1500,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 1000),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-                Image.asset(
-                  "assets/MES—L3 1.png",
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.sizeOf(context).width,
-                ).slideUp(
-                  from: 1500,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 1000),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-                Image.asset(
-                  "assets/MES—L2 1.png",
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.sizeOf(context).width,
-                ).slideUp(
-                  from: 1500,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 1000),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-                Image.asset(
-                  "assets/MES—L1 1.png",
-                  fit: BoxFit.fitWidth,
-                  width: MediaQuery.sizeOf(context).width,
-                ).slideUp(
-                  from: 1500,
-                  curve: CustomSpringCurve(),
-                  duration: Duration(milliseconds: 1000),
-                  animate: showFirst,
-                  delay: Duration(milliseconds: 800),
-                ),
-              ],
-            ),
-            // if (!showFirst)
-            ForestEntry(showFirst: showFirst),
-            if (showFirst) ForestExit(showFirst: showFirst),
-            Positioned(
-              right: 0,
-              left: 0,
-              bottom: 10,
-              child: GestureDetector(
-                onTap: () => setState(() {
-                  showFirst = !showFirst;
-                  hasAnimatedFirst = true;
-                }),
-                child: Image.asset(
-                  'assets/connect_button.png',
-                ),
+                  Image.asset(
+                    "assets/MES—L4 1.png",
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.sizeOf(context).width,
+                  ).slideUp(
+                    from: 1500,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 1000),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
+                  ),
+                  Image.asset(
+                    "assets/MES—L3 1.png",
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.sizeOf(context).width,
+                  ).slideUp(
+                    from: 1500,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 1000),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
+                  ),
+                  Image.asset(
+                    "assets/MES—L2 1.png",
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.sizeOf(context).width,
+                  ).slideUp(
+                    from: 1500,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 1000),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
+                  ),
+                  Image.asset(
+                    "assets/MES—L1 1.png",
+                    fit: BoxFit.fitWidth,
+                    width: MediaQuery.sizeOf(context).width,
+                  ).slideUp(
+                    from: 1500,
+                    curve: CustomSpringCurve(),
+                    duration: Duration(milliseconds: 1000),
+                    animate: showFirst,
+                    delay: Duration(milliseconds: 800),
+                  ),
+                ],
               ),
-            )
-          ],
+              // if (!showFirst)
+              ForestEntry(showFirst: showFirst),
+              if (showFirst) ForestExit(showFirst: showFirst),
+              Positioned(
+                right: 0,
+                left: 0,
+                bottom: 10,
+                child: GestureDetector(
+                  onTap: () => Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => VpnScreen())),
+                  child: Image.asset(
+                    'assets/connect_button.png',
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

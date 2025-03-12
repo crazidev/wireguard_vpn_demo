@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:avatar_glow/avatar_glow.dart';
@@ -28,7 +27,7 @@ class _VpnScreenState extends State<VpnScreen> {
   late String name;
   String? ipAddress;
   Server selectedServer = servers.first;
-  late Timer timer;
+
   @override
   void initState() {
     super.initState();
@@ -46,10 +45,14 @@ class _VpnScreenState extends State<VpnScreen> {
       });
     });
     name = 'my_wg_vpn';
-    timer = Timer.periodic(Duration(seconds: 1), (tick) {
-      _getWireGuardDataCounts();
-    });
     initialize();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      wireguard.stage().then((v) {
+        setState(() {
+          status = v;
+        });
+      });
+    });
   }
 
   Future<void> initialize() async {
@@ -62,15 +65,15 @@ class _VpnScreenState extends State<VpnScreen> {
   }
 
   void _getWireGuardDataCounts() async {
-    try {
-      final dataCounts = await wireguard.getDataCounts();
-      // setState(() {
-      //   _downloadCount = dataCounts['download'].toString();
-      //   _uploadCount = dataCounts['upload'].toString();
-      // });
-    } catch (e) {
-      print('Failed to get data counts: $e');
-    }
+    // try {
+    //   final dataCounts = await _wireguardService.getDataCounts();
+    //   setState(() {
+    //     _downloadCount = dataCounts['download'].toString();
+    //     _uploadCount = dataCounts['upload'].toString();
+    //   });
+    // } catch (e) {
+    //   print('Failed to get data counts: $e');
+    // }
   }
 
   void startVpn() async {
@@ -120,13 +123,6 @@ class _VpnScreenState extends State<VpnScreen> {
   }
 
   void changeServer(Server server) {}
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     var color = switch (status) {
@@ -143,9 +139,9 @@ class _VpnScreenState extends State<VpnScreen> {
             top: 0,
             child: Image.asset(
               'assets/Vector_2646.jpg',
-              fit: BoxFit.fitHeight,
+              fit: BoxFit.cover,
               opacity: AlwaysStoppedAnimation(0.3),
-              width: 1500,
+              width: 500,
             ),
           ),
           SafeArea(
