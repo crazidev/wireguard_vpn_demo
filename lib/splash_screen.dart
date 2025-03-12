@@ -109,7 +109,8 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ],
             ),
-            if (!showFirst) ForestEntry(showFirst: showFirst),
+            // if (!showFirst)
+            ForestEntry(showFirst: showFirst),
             if (showFirst) ForestExit(showFirst: showFirst),
             Positioned(
               right: 0,
