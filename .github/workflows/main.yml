@@ -1,0 +1,34 @@
+name: Build & Release
+
+on:
+  pull_request:
+    branches:
+      - stable
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build & Release
+        uses: crazidev/flutter-shorebird-action@v1
+        with:
+          FLUTTER_VERSION: "3.27.0"
+          FLUTTER_BUILD_APK: true
+
+          SHOREBIRD_RELEASE: false
+          SHOREBIRD_BUILD_IOS: false
+          SHOREBIRD_BUILD_ANDROID: true
+          SHOREBIRD_EXTRA_ARGS: ""
+
+          SHOREBIRD_PATCH: false
+          SHOREBIRD_PATCH_RELEASE_VERSION: "1.0.0+1"
+          SHOREBIRD_PATCH_ANDROID: false
+          SHOREBIRD_PATCH_IOS: false
+          SHOREBIRD_TOKEN: ${{ secrets.SHOREBIRD_TOKEN }}
