@@ -19,7 +19,7 @@ jobs:
       - name: Build & Release
         uses: crazidev/flutter-shorebird-action@v1
         with:
-          FLUTTER_VERSION: "3.27.0"
+          FLUTTER_VERSION: "3.29.1"
           FLUTTER_BUILD_APK: true
 
           SHOREBIRD_RELEASE: false
